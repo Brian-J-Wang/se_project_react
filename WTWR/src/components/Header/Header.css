@@ -1,0 +1,33 @@
+.header {
+    padding: 32px 40px 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1360px;
+    max-height: 40px;
+}
+
+.header__right-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.header__left-content {
+    display: flex;
+    flex-direction: row; 
+}
+
+.header__logo {
+}
+
+.header__info {
+}
+
+.header__add-clothes-modal {
+}
+
+.header__username {
+}
+
+.header__profile-picture {
+}
