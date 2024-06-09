@@ -1,8 +1,7 @@
 .weather-card {
     display: flex;
     justify-items: center;
-    max-width: 1360px;
-    margin: 0px 40px;
+    margin-top: 28px;
     height: 80px;
     border-radius: 12px;
     background-repeat: no-repeat;

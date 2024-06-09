@@ -1,6 +1,6 @@
 .app {
-  padding-left: calc((100% - 1440px) / 2);
-  padding-right: calc((100% - 1440px) / 2);
-  background: rgba(243, 243, 243, 1);
+  margin: 0px auto;
+  padding: 32px 40px 24px;
+  max-width: 1360px;
   font-family: 'Cabinet Grotesk', Arial, sans-serif;
 }
