@@ -5,6 +5,8 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import WeatherAPI from '../../utils/weatherAPI';
+import Overlay from '../Overlay/Overlay';
+import ItemModal from '../ItemModal/ItemModal';
 
 function App() {
   const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
@@ -14,6 +16,7 @@ function App() {
   const [currentDate, setDate] = useState(undefined);
   const [location, setLocation] = useState('Earth');
   const [isNight, setIsNight] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
 
   //get weather data
   useEffect(() => {
@@ -36,11 +39,39 @@ function App() {
     setDate(currentDate);
   }, [])
 
+
+  const handleCardClick = (name, image, weather) => {
+    setActiveModal((
+      <ItemModal name={name} image={image} weather={weather} handleCloseButtonClick={closeActiveModal} handleEscClick={handleEscClick}></ItemModal>
+    ))
+  }
+
+  const handleOverlayClick = (evt) => {
+    if (evt.target.classList.contains('overlay')) {
+      closeActiveModal();
+    }
+  }
+
+  const handleEscClick = (evt) => {
+    if (evt.key == 'Esc') {
+      closeActiveModal();
+    }
+  }
+
+  const closeActiveModal = () => {
+    setActiveModal(null);
+  }
+
+  //
+
   return (
     <div className='app'>
       <Header date={currentDate} location={location}></Header>
-      <Main temperature={temperature} isNight={isNight} weather={weather}></Main>
+      <Main temperature={temperature} isNight={isNight} weather={weather} handleCardClick={handleCardClick}></Main>
       <Footer></Footer>
+      <Overlay handleOverlayClick={handleOverlayClick}>
+        {activeModal}
+      </Overlay>
     </div>
   );
 }

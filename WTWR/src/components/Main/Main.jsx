@@ -16,7 +16,7 @@ function Main(props) {
                 defaultClothingItems.map(item => {
 
                     return (
-                        <ItemCard key={item._id} name={item.name} link={item.link}></ItemCard>
+                        <ItemCard key={item._id} name={item.name} link={item.link} handleCardClick={props.handleCardClick}></ItemCard>
                     )
                     
                 })
