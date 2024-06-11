@@ -1,0 +1,15 @@
+.main__blurb {
+    margin: 40px 0px 0px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.8px;
+}
+
+.main__card-list {
+    margin: 34px 0px 0px;
+    max-width: 1440px;
+    padding: 0px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
