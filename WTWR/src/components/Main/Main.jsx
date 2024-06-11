@@ -13,12 +13,16 @@ function Main(props) {
             </p>
             <ul className="main__card-list">
             {
-                defaultClothingItems.map(item => {
-
+                defaultClothingItems.filter(item => {
+                    if (item.weather == props.ambience) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }).map(item => {
                     return (
-                        <ItemCard key={item._id} name={item.name} link={item.link} handleCardClick={props.handleCardClick}></ItemCard>
+                        <ItemCard key={item._id} name={item.name} link={item.link} weatherType={item.weather} handleCardClick={props.handleCardClick}></ItemCard>
                     )
-                    
                 })
             }
             </ul>

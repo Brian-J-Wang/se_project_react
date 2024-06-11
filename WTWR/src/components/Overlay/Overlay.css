@@ -14,5 +14,8 @@
 }
 
 .overlay__content {
-    margin: auto;
+    margin: auto 0px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
 }

@@ -10,7 +10,7 @@ function Header(props) {
                 <p className="header__info"> {props.date}, {props.location}</p>
             </div>
             <div className="header__right-content">
-                <button className="header__add-clothes-button">+ Add clothes</button>
+                <button className="header__add-clothes-button" onClick={props.handleAddClothesClick}>+ Add clothes</button>
                 <p className="header__username">Terrence Tegegne</p>
                 <img src={profile} alt="profilePicture" className="header__profile-picture" />
             </div>

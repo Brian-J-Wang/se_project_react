@@ -20,6 +20,7 @@ export default class WeatherAPI {
             this.temperature = Math.trunc(json.main.temp);
             this.weather = this._calculateWeather(json.weather[0].id);
             this.isNight = this._calculateNight(json.dt, json.sys.sunrise, json.sys.sunset);
+            this.ambience = this._calculateWeatherAmbience(this.temperature);
         })
     }
 
@@ -53,5 +54,15 @@ export default class WeatherAPI {
     //parameters are given in unix UTC
     _calculateNight(dt, sunrise, sunset) {
         return (dt < sunrise || dt > sunset) ? true : false;
+    }
+
+    _calculateWeatherAmbience(temperature) {
+        if (temperature >= 86) {
+            return 'hot';
+          } else if (temperature >= 66 && temperature <= 85) {
+            return 'warm';
+          } else if (temperature <= 65) {
+            return 'cold';
+          }
     }
 }
