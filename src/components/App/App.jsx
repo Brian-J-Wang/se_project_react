@@ -9,9 +9,9 @@ import Overlay from '../Overlay/Overlay';
 import ItemModal from '../ItemModal/ItemModal';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
-function App() {
-  const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
+const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
 
+function App() {
   const [temperature, setTemperature] = useState(undefined);
   const [weather, setWeather] = useState(undefined);
   const [currentDate, setDate] = useState(undefined);
@@ -22,13 +22,16 @@ function App() {
 
   //get weather data
   useEffect(() => {
-    weatherAPI.GetWeatherData()
+    weatherAPI.getWeatherData()
     .then(res => {
       setTemperature(weatherAPI.temperature);
       setWeather(weatherAPI.weather);
       setLocation(weatherAPI.location);
       setIsNight(weatherAPI.isNight);
       setAmbience(weatherAPI.ambience);
+    })
+    .catch(rej => {
+      console.log(rej);
     });    
   }, [])
 
@@ -45,24 +48,8 @@ function App() {
   //functions for opening the form modals
   const handleAddClothesClick = () => {
     setActiveModal((
-      <ModalWithForm title='New garment' name="new garment" buttonText="Add garment"
+      <ModalWithForm title='New garment' name="new garment" buttonText="Add garment" form='addClothes'
       handleCloseButtonClick={closeActiveModal} handleEscPress={handleEscPress}>
-          <label htmlFor="name" className='form-modal__label'>Name</label>
-          <input type="text" name="name" id="name" placeholder='Name' className='form-modal__input'/>
-          <label htmlFor="image" className='form-modal__label'>Image</label>
-          <input type="text" name="image" id="image" placeholder='Image URL' className='form-modal__input'/>
-          <h2 className='form-modal__field-header'>Select the weather type</h2>
-          <div className="form-modal__radio-selection">
-            <label htmlFor="hot" className='form-modal__radio-element'>
-              <input type="radio" name="weather-type" id="hot" className='form-modal__radio-button'/> Hot
-            </label>
-            <label htmlFor="warm" className='form-modal__radio-element'>
-              <input type="radio" name="weather-type" id="warm" className='form-modal__radio-button'/> Warm
-            </label>
-            <label htmlFor="cold" className='form-modal__radio-element'>
-              <input type="radio" name="weather-type" id="cold" className='form-modal__radio-button'/> Cold
-            </label>
-          </div>
       </ModalWithForm>
     ))
   }

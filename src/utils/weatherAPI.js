@@ -5,7 +5,7 @@ export default class WeatherAPI {
         this._lat = latitude;
     }
 
-    GetWeatherData() {
+    getWeatherData() {
         return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this._lat}&lon=${this._lon}&appid=${this._apiKey}&units=imperial`)
         .then(res => {
             if (res.ok) {

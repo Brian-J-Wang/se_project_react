@@ -4,9 +4,9 @@ import profile from '../../assets/profile.svg';
 
 function Header(props) {
     return (
-        <div className="header">
+        <header className="header">
             <div className="header__left-content">
-                <img src={logo} alt="" className="header__logo" />
+                <img src={logo} alt="logo" className="header__logo" />
                 <p className="header__info"> {props.date}, {props.location}</p>
             </div>
             <div className="header__right-content">
@@ -14,7 +14,7 @@ function Header(props) {
                 <p className="header__username">Terrence Tegegne</p>
                 <img src={profile} alt="profilePicture" className="header__profile-picture" />
             </div>
-        </div>
+        </header>
     )
 }
 

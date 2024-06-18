@@ -1,6 +1,6 @@
 import './Main.css'
-import WeatherCard from "../WeatherCard/WeatherCard"
-import ItemCard from "../ItemCard/ItemCard"
+import WeatherCard from "../WeatherCard/WeatherCard.jsx"
+import ItemCard from "../ItemCard/ItemCard.jsx"
 import defaultClothingItems from '../../utils/defaultClothing.js'
 
 
