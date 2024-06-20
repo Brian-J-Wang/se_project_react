@@ -1,0 +1,27 @@
+.modal {
+    position: relative;
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+.modal__close-button {
+    position: absolute;
+    background-image: url("../../assets/close.svg");
+    background-position: center;
+    border: none;
+    cursor: pointer;
+}
+
+.modal__label {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-top: 24px;
+}
+
+.modal__input {
+    margin-top: 8px;
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 0px 0px 4px 0px;
+}

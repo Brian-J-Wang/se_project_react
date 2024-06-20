@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { act, useState } from 'react'
 import { useEffect } from 'react';
 import './App.css'
 import Header from '../Header/Header';
@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer';
 import WeatherAPI from '../../utils/weatherAPI';
 import Overlay from '../Overlay/Overlay';
 import ItemModal from '../ItemModal/ItemModal';
-import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import AddClothesModal from '../AddClothesModal/AddClothesModal';
 
 const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
 
@@ -45,20 +45,21 @@ function App() {
     setDate(currentDate);
   }, [])
 
+  //load the correct modal
+  useEffect(() => {
+
+  }, [activeModal])
+
   //functions for opening the form modals
   const handleAddClothesClick = () => {
-    setActiveModal((
-      <ModalWithForm title='New garment' name="new garment" buttonText="Add garment" form='addClothes'
-      handleCloseButtonClick={closeActiveModal} handleEscPress={handleEscPress}>
-      </ModalWithForm>
-    ))
+    setActiveModal(<AddClothesModal handleCloseButtonClick={closeActiveModal}/>);
   }
 
   //functions for opening the card modal.
   const handleCardClick = (name, image, weather) => {
     setActiveModal((
       <ItemModal name={name} image={image} weather={weather} handleCloseButtonClick={closeActiveModal} handleEscPress={handleEscPress}></ItemModal>
-    ))
+    ));
   }
 
   //overlay functions
@@ -77,8 +78,6 @@ function App() {
   const closeActiveModal = () => {
     setActiveModal(null);
   }
-
-  //
 
   return (
     <div className='app'>
