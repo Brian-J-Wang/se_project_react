@@ -17,10 +17,15 @@ export default class WeatherAPI {
         .then(json => {
             console.log(json);
             this.location = json.name;
-            this.temperature = Math.trunc(json.main.temp);
+            this.temperature = {
+                'F': 0,
+                'C': 0
+            };
+            this.temperature.F = Math.trunc(json.main.temp);
+            this.temperature.C = Math.round((this.temperature.F - 32) * 5/9);
             this.weather = this._calculateWeather(json.weather[0].id);
             this.isNight = this._calculateNight(json.dt, json.sys.sunrise, json.sys.sunset);
-            this.ambience = this._calculateWeatherAmbience(this.temperature);
+            this.ambience = this._calculateWeatherAmbience(this.temperature.F);
         })
     }
 

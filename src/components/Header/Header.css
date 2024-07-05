@@ -47,3 +47,7 @@
     width: 40px;
     margin-left: 12px;
 }
+
+.header__toggle-switch {
+    margin: auto 20px auto auto;
+}
