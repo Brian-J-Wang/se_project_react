@@ -9,7 +9,7 @@ import Overlay from '../Overlay/Overlay';
 import ItemModal from '../ItemModal/ItemModal';
 import AddClothesModal from '../AddClothesModal/AddClothesModal';
 import { TemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Profile from '../Profile/Profile';
 
 const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
@@ -98,10 +98,10 @@ function App() {
       <TemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
         <Header date={currentDate} location={location} handleAddClothesClick={handleAddClothesClick} />
         <Routes>
-          <Route path='/' element={
+          <Route path="/" element={
             <Main temperature={temperature} isNight={isNight} weather={weather} ambience={ambience} handleCardClick={handleCardClick} />
             }/>
-          <Route path='/profile' element={
+          <Route path="/profile" element={
             <Profile />
           }/>
         </Routes>
@@ -115,4 +115,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
