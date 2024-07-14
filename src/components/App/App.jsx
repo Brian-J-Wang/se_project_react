@@ -84,6 +84,7 @@ function App() {
   }
 
   const handleEscPress = (evt) => {
+    console.log(evt.key);
     if (evt.key == 'Escape') {
       closeActiveModal();
     }

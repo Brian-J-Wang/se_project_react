@@ -5,7 +5,6 @@ import './Overlay.css'
 function Overlay(props) {
     const [isActive, setIsActive] = useState(false);
     useEffect(() => {
-        console.log(props.children);
         if (props.children != null) {
             setIsActive(true);
         } else {
