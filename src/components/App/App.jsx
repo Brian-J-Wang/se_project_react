@@ -102,7 +102,7 @@ function App() {
             <Main temperature={temperature} isNight={isNight} weather={weather} ambience={ambience} handleCardClick={handleCardClick} />
             }/>
           <Route path='/profile' element={
-            <Profile />
+            <Profile handleAddClothesClick={handleAddClothesClick}/>
           }/>
         </Routes>
         
@@ -115,4 +115,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

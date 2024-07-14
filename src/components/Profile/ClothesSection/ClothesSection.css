@@ -1,0 +1,39 @@
+.clothes-section {
+     max-width: 100%;
+}
+
+.clothes-section__header {
+    display: flex;
+    margin-top: 63px;
+    height: 25px;
+}
+
+.clothes-section__header-title {
+    font-size: 20px;
+    font-weight: 700;
+    Line-height: 24.8px;
+    margin: 0px;
+    margin-right: 20px;
+}
+
+.clothes-section__add {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24.8px;
+    padding: 0px;
+    border: 0px;
+    background-color: rgba(0,0,0,0);
+    color: rgba(0,0,0,0.6);
+    transition: color 0.15s ease-in-out;
+}
+
+.clothes-section__add:hover {
+    color: rgba(0,0,0,1);
+}
+
+.clothes-section__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 16px;
+}
