@@ -15,13 +15,16 @@ function Overlay(props) {
     useEffect(() => {
         if (isActive) {
             document.addEventListener('keydown', props.handleEscPress);
+            document.getElementById('overlay').addEventListener('mousedown', props.handleOverlayClick);
         } else {
-            document.removeEventListener('keydown', props.handleEscPress)
+            document.removeEventListener('keydown', props.handleEscPress);
+            document.getElementById('overlay').removeEventListener('mousedown', props.handleOverlayClick);
         }
     }, [isActive]);
 
+
     return (
-        <div onClick={props.handleOverlayClick} className={`overlay ${isActive ? 'overlay_state_active' : ''}`} >
+        <div id='overlay' className={`overlay ${isActive ? 'overlay_state_active' : ''}`} >
             <div className="overlay__content">
                 {props.children}
             </div>

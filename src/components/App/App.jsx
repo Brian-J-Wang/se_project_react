@@ -53,20 +53,20 @@ function App() {
 		setDate(currentDate);
 	}, [])
 
-	//load the correct modal
+	//refreshes the page when the active modal has been changed.
 	useEffect(() => {
 
 	}, [activeModal])
 
-	//functions for opening the form modals
+	//opens AddItemModal when the + Add new buttons has been clicked.
 	const handleAddClothesClick = () => {
 		setActiveModal(<AddItemModal handleCloseButtonClick={closeActiveModal} onAddItem={handleAddItemSubmit} onCloseModal={onCloseModal}/>);
 	}
 
-	//functions for opening the card modal.
+	//opens ItemModal whenever a clothing card has been clicked.
 	const handleCardClick = (name, image, weather) => {
 	setActiveModal((
-		<ItemModal name={name} image={image} weather={weather} handleCloseButtonClick={closeActiveModal} handleEscPress={handleEscPress}></ItemModal>
+		<ItemModal name={name} image={image} weather={weather} handleCloseButtonClick={closeActiveModal}></ItemModal>
 	));
 	}
 
@@ -82,16 +82,18 @@ function App() {
 
 	//overlay functions
 	const handleOverlayClick = (evt) => {
-	if (evt.target.classList.contains('overlay')) {
-		closeActiveModal();
-	}
+		if (evt.target.classList.contains('overlay')) {
+			console.log(evt.currentTarget);
+			console.log(evt.target);
+			closeActiveModal();
+		}
 	}
 
 	const handleEscPress = (evt) => {
-	console.log(evt.key);
-	if (evt.key == 'Escape') {
-		closeActiveModal();
-	}
+		console.log(evt.key);
+		if (evt.key == 'Escape') {
+			closeActiveModal();
+		}
 	}
 
 	const closeActiveModal = () => {
@@ -128,7 +130,7 @@ function App() {
 			</UserClothingContext.Provider>
 			<Footer></Footer>
 
-			<Overlay handleOverlayClick={handleOverlayClick}>
+			<Overlay handleOverlayClick={handleOverlayClick} handleEscPress={handleEscPress}>
 				{activeModal}
 			</Overlay>
 		</TemperatureUnitContext.Provider>
