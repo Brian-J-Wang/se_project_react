@@ -1,8 +1,17 @@
 import './ClothesSection.css'
 import defaultClothingItems from '../../../utils/defaultClothing.js'
 import ItemCard from '../../ItemCard/ItemCard.jsx'
+import { useContext, useEffect } from 'react'
+import { UserClothingContext } from '../../../contexts/UserClothingContext.js'
 
 function ClothesSection(props) {
+    const clothingContext = useContext(UserClothingContext);
+
+    //refresh the clothing section whenever the userClothingContext gets updated in App.js.
+    useEffect(() => {
+
+    }, [clothingContext]);
+
     return (
         <div className="clothes-section">
             <div className="clothes-section__header">
@@ -11,7 +20,7 @@ function ClothesSection(props) {
             </div>
             <div className="clothes-section__content">
                 {
-                    defaultClothingItems.map((item) => {
+                    clothingContext.userClothing.map((item) => {
                         return (
                             <ItemCard key={item._id} name={item.name} link={item.link} weatherType={item.weather} handleCardClick={props.handleCardClick}/>
                         )

@@ -1,13 +1,18 @@
 import './Main.css'
 import WeatherCard from "../WeatherCard/WeatherCard.jsx"
 import ItemCard from "../ItemCard/ItemCard.jsx"
-import defaultClothingItems from '../../utils/defaultClothing.js'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { TemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext.js'
+import { UserClothingContext } from '../../contexts/UserClothingContext.js'
 
 
 function Main(props) {
     const temperatureContext = useContext(TemperatureUnitContext);
+    const clothingContext = useContext(UserClothingContext);
+
+    useEffect(() => {
+
+    }, [clothingContext])
 
     return (
         <>
@@ -17,7 +22,7 @@ function Main(props) {
             </p>
             <ul className="main__card-list">
             {
-                defaultClothingItems.filter(item => {
+                clothingContext.userClothing.filter(item => {
                     if (item.weather == props.ambience) {
                         return true;
                     } else {
