@@ -103,10 +103,9 @@ function App() {
 	//functions for AddItemModal
 	const handleAddItemSubmit = (newItem) => {
 		newItem._id = Object.keys(userClothing).length;
-
-		console.log(newItem);
-
 		setUserClothing([newItem, ...userClothing]);
+
+		closeActiveModal();
 	}
 
 	const onCloseModal = () => {
