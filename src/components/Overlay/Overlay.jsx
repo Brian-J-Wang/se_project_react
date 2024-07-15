@@ -12,6 +12,14 @@ function Overlay(props) {
         }
     }, [props.children])
 
+    useEffect(() => {
+        if (isActive) {
+            document.addEventListener('keydown', props.handleEscPress);
+        } else {
+            document.removeEventListener('keydown', props.handleEscPress)
+        }
+    }, [isActive]);
+
     return (
         <div onClick={props.handleOverlayClick} className={`overlay ${isActive ? 'overlay_state_active' : ''}`} >
             <div className="overlay__content">

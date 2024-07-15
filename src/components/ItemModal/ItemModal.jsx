@@ -3,14 +3,6 @@ import './ItemModal.css'
 
 function ItemModal(props) {
 
-    useEffect(() => {
-        document.addEventListener('keydown', props.handleEscPress);
-
-        return () => {
-            document.removeEventListener('keydown', props.handleEscPress);
-        }
-    }, [])
-
     return (
         <div className="item-modal">
             <button className="item-modal__close" onClick={props.handleCloseButtonClick}></button>

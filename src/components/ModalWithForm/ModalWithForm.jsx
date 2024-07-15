@@ -4,14 +4,6 @@ import { useEffect } from 'react';
 
 function ModalWithForm(props) {
 
-    useEffect(() => {
-        document.addEventListener('keydown', props.handleEscPress)
-
-        return () => {
-            document.removeEventListener('keydown', props.handleEscPress);
-        }
-    }, [])
-
     return(
         <div className="modal form-modal">
             <button onClick={props.handleCloseButtonClick} className="modal__close-button form-modal__close-button"></button>
