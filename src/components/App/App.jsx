@@ -1,4 +1,4 @@
-import { act, useState } from 'react'
+import { useState } from 'react'
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -64,9 +64,9 @@ function App() {
 	}
 
 	//opens ItemModal whenever a clothing card has been clicked.
-	const handleCardClick = (name, image, weather) => {
+	const handleCardClick = (name, image, weather, id) => {
 	setActiveModal((
-		<ItemModal name={name} image={image} weather={weather} handleCloseButtonClick={closeActiveModal}></ItemModal>
+		<ItemModal name={name} image={image} weather={weather} id={id} handleCloseButtonClick={closeActiveModal} handleDeleteCard={handleDeleteCard}></ItemModal>
 	));
 	}
 
@@ -108,8 +108,18 @@ function App() {
 		closeActiveModal();
 	}
 
-	const onCloseModal = () => {
+	const handleDeleteCard = (key) => {
+		const newClothes = userClothing.filter((item) => {
+			if (item._id != key) {
+				return true;
+			} else {
+				return false;
+			}
+		});
 
+		setUserClothing(newClothes);
+
+		closeActiveModal();
 	}
 
 
@@ -123,7 +133,7 @@ function App() {
 					<Main temperature={temperature} isNight={isNight} weather={weather} ambience={ambience} handleCardClick={handleCardClick} />
 					}/>
 					<Route path='/profile' element={
-					<Profile handleAddClothesClick={handleAddClothesClick}/>
+					<Profile handleAddClothesClick={handleAddClothesClick} handleCardClick={handleCardClick}/>
 					}/>
 				</Routes>
 			</UserClothingContext.Provider>

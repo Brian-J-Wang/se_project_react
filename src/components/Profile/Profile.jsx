@@ -7,7 +7,7 @@ function Profile(props) {
     return (
         <div className="profile">
             <SideBar/>
-            <ClothesSection handleAddClothesClick={props.handleAddClothesClick}/>
+            <ClothesSection handleAddClothesClick={props.handleAddClothesClick} handleCardClick={props.handleCardClick}/>
         </div>
     );
 }

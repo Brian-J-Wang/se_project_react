@@ -2,6 +2,11 @@ import { useEffect } from 'react';
 import './ItemModal.css'
 
 function ItemModal(props) {
+    console.log(props.id);
+
+    const onDeleteButtonClick = () => {
+        props.handleDeleteCard(props.id);
+    }
 
     return (
         <div className="item-modal">
@@ -10,7 +15,10 @@ function ItemModal(props) {
                 <img src={props.image} alt={props.name} className="item-modal__item-image" />
                 <h1 className='item-modal__item-name'>{props.name}</h1>
             </div>
-            <p className="item-modal__weather-type">Weather: {props.weather}</p>
+            <div className="item-modal__description-container">
+                <p className="item-modal__weather-type">Weather: {props.weather}</p>
+                <button className='item-modal__delete-button' onClick={onDeleteButtonClick}>Delete item</button>
+            </div>
         </div>
     )
 }

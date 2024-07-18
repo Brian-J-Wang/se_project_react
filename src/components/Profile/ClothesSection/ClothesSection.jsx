@@ -22,7 +22,7 @@ function ClothesSection(props) {
                 {
                     clothingContext.userClothing.map((item) => {
                         return (
-                            <ItemCard key={item._id} name={item.name} link={item.link} weatherType={item.weather} handleCardClick={props.handleCardClick}/>
+                            <ItemCard key={item._id} name={item.name} link={item.link} weatherType={item.weather} handleCardClick={props.handleCardClick} id={item._id}/>
                         )
                     })
                 }
