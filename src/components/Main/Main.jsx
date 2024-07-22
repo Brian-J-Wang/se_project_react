@@ -30,7 +30,7 @@ function Main(props) {
                     }
                 }).map(item => {
                     return (
-                        <ItemCard key={item._id} name={item.name} link={item.link} weatherType={item.weather} handleCardClick={props.handleCardClick} id={item._id}/>
+                        <ItemCard key={item._id} name={item.name} link={item.imageUrl} weatherType={item.weather} handleCardClick={props.handleCardClick} id={item._id}/>
                     )
                 })
             }

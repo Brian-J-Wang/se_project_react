@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import WeatherAPI from '../../utils/weatherAPI';
+import ClothingAPI from '../../utils/clothingAPI.js';
 import Overlay from '../Overlay/Overlay';
 import ItemModal from '../ItemModal/ItemModal';
 import AddItemModal from '../AddItemModal/AddItemModal';
@@ -16,6 +17,7 @@ import defaultClothingItems from '../../utils/defaultClothing.js'
 import Profile from '../Profile/Profile';
 
 const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
+const clothingAPI = new ClothingAPI("http://localhost:3001");
 
 function App() {
 	const [temperature, setTemperature] = useState(undefined);
@@ -26,7 +28,15 @@ function App() {
 	const [activeModal, setActiveModal] = useState(null);
 	const [ambience, setAmbience] = useState('cold');
 	const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
-	const [userClothing, setUserClothing] = useState(defaultClothingItems);
+	const [userClothing, setUserClothing] = useState([]);
+
+	//get clothing
+	useEffect(() => {
+		clothingAPI.getClothing()
+		.then(res => {
+			setUserClothing(res);
+		})
+	}, []);
 
 	//get weather data
 	useEffect(() => {
@@ -60,7 +70,7 @@ function App() {
 
 	//opens AddItemModal when the + Add new buttons has been clicked.
 	const handleAddClothesClick = () => {
-		setActiveModal(<AddItemModal handleCloseButtonClick={closeActiveModal} onAddItem={handleAddItemSubmit} onCloseModal={onCloseModal}/>);
+		setActiveModal(<AddItemModal handleCloseButtonClick={closeActiveModal} onAddItem={handleAddItemSubmit}/>);
 	}
 
 	//opens ItemModal whenever a clothing card has been clicked.
@@ -90,7 +100,6 @@ function App() {
 	}
 
 	const handleEscPress = (evt) => {
-		console.log(evt.key);
 		if (evt.key == 'Escape') {
 			closeActiveModal();
 		}
@@ -103,21 +112,24 @@ function App() {
 	//functions for AddItemModal
 	const handleAddItemSubmit = (newItem) => {
 		newItem._id = Object.keys(userClothing).length;
-		setUserClothing([newItem, ...userClothing]);
+		
+		clothingAPI.addClothing(newItem).then((item) => {
+			setUserClothing([item, ...userClothing]);
+		})
 
 		closeActiveModal();
 	}
 
-	const handleDeleteCard = (key) => {
-		const newClothes = userClothing.filter((item) => {
-			if (item._id != key) {
-				return true;
-			} else {
-				return false;
-			}
-		});
-
-		setUserClothing(newClothes);
+	const handleDeleteCard = (id) => {
+		clothingAPI.removeClothing(id).then((item) => {
+			setUserClothing(userClothing.filter((item) => {
+				if (item._id != id) {
+					return true;
+				} else {
+					return false;
+				}
+			}));
+		})
 
 		closeActiveModal();
 	}

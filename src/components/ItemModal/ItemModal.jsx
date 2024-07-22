@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import './ItemModal.css'
 
 function ItemModal(props) {
-    console.log(props.id);
 
     const onDeleteButtonClick = () => {
         props.handleDeleteCard(props.id);

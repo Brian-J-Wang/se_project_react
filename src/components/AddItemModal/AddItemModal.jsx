@@ -28,7 +28,7 @@ function AddItemModal(props) {
         const shirt = {
             name: name,
             weather: weatherType,
-            link: image
+            imageUrl: image
         }
 
         props.onAddItem(shirt);
