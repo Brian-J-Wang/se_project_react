@@ -3,7 +3,7 @@ import './ItemCard.css'
 function ItemCard(props) {
 
     function handleCardClick() {
-        props.handleCardClick(props.name, props.link, props.weatherType);
+        props.handleCardClick(props.name, props.link, props.weatherType, props.id);
     }
 
     return (

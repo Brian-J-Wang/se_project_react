@@ -15,7 +15,6 @@ export default class WeatherAPI {
             }
         })
         .then(json => {
-            console.log(json);
             this.location = json.name;
             this.temperature = {
                 'F': 0,
