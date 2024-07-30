@@ -10,10 +10,6 @@ function Main(props) {
     const temperatureContext = useContext(TemperatureUnitContext);
     const clothingContext = useContext(UserClothingContext);
 
-    useEffect(() => {
-
-    }, [clothingContext])
-
     return (
         <>
             <WeatherCard isNight={props.isNight} temperature={props.temperature} weather={props.weather}></WeatherCard>

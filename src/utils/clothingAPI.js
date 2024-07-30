@@ -4,19 +4,13 @@ export default class ClothingAPI {
     }
 
     getClothing() {
-        return fetch(this.baseUrl.concat('/items'), {
+        return this._request(this.baseUrl.concat('/items'), {
             method: "GET"
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject('invalid data');
-            }
         });
     }
 
     addClothing(data) {
-        return fetch(this.baseUrl.concat('/items'), {
+        return this._request(this.baseUrl.concat('/items'), {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -27,28 +21,27 @@ export default class ClothingAPI {
                 weather: data.weather,
                 imageUrl: data.imageUrl
             })
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();  
-            } else {
-                return Promise.reject('invalid data');
-            }
         })
     }
 
     removeClothing(id) {
-        return fetch(this.baseUrl.concat(`/items/${id}`), {
+        return this._request(this.baseUrl.concat(`/items/${id}`),{
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject('invalid data');
-            }
-        })
+        });
     }
-    
+
+    _request(url, options) {
+        return fetch(url, options).then(this._checkResponse);
+    }
+
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        } else {
+            return Promise.reject('invalid data');
+        }
+    }
 }

@@ -36,6 +36,9 @@ function App() {
 		.then(res => {
 			setUserClothing(res);
 		})
+		.catch(rej => {
+			console.error(rej);
+		})
 	}, []);
 
 	//get weather data
@@ -49,7 +52,7 @@ function App() {
 			setAmbience(weatherAPI.ambience);
 		})
 		.catch(rej => {
-			console.log(rej);
+			console.error(rej);
 		});    
 	}, []);
 
@@ -62,11 +65,6 @@ function App() {
 
 		setDate(currentDate);
 	}, [])
-
-	//refreshes the page when the active modal has been changed.
-	useEffect(() => {
-
-	}, [activeModal])
 
 	//opens AddItemModal when the + Add new buttons has been clicked.
 	const handleAddClothesClick = () => {
@@ -111,13 +109,15 @@ function App() {
 
 	//functions for AddItemModal
 	const handleAddItemSubmit = (newItem) => {
-		newItem._id = Object.keys(userClothing).length;
+		newItem._id = Math.random();
 		
 		clothingAPI.addClothing(newItem).then((item) => {
 			setUserClothing([item, ...userClothing]);
+			closeActiveModal();
 		})
-
-		closeActiveModal();
+		.catch(rej => {
+			console.error(rej);
+		})
 	}
 
 	const handleDeleteCard = (id) => {
@@ -129,9 +129,11 @@ function App() {
 					return false;
 				}
 			}));
+			closeActiveModal();
 		})
-
-		closeActiveModal();
+		.catch(rej => {
+			console.error(rej);
+		})
 	}
 
 
@@ -149,7 +151,7 @@ function App() {
 					}/>
 				</Routes>
 			</UserClothingContext.Provider>
-			<Footer></Footer>
+			<Footer/>
 
 			<Overlay handleOverlayClick={handleOverlayClick} handleEscPress={handleEscPress}>
 				{activeModal}

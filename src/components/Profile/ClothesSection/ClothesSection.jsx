@@ -7,11 +7,6 @@ import { UserClothingContext } from '../../../contexts/UserClothingContext.js'
 function ClothesSection(props) {
     const clothingContext = useContext(UserClothingContext);
 
-    //refresh the clothing section whenever the userClothingContext gets updated in App.js.
-    useEffect(() => {
-
-    }, [clothingContext]);
-
     return (
         <div className="clothes-section">
             <div className="clothes-section__header">
