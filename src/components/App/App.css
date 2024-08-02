@@ -1,4 +1,6 @@
 .app {
+  box-sizing: border-box;
+  height: 100vh;
   margin: 0px auto;
   padding: 32px 40px 24px;
   max-width: 1360px;

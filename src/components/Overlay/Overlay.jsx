@@ -14,9 +14,13 @@ function Overlay(props) {
 
     useEffect(() => {
         if (isActive) {
-            document.getElementById('overlay').addEventListener('mousedown', props.handleOverlayClick);
+            document.addEventListener('keydown', props.handleEscPress);
         } else {
-            document.getElementById('overlay').removeEventListener('mousedown', props.handleOverlayClick);
+            document.removeEventListener('keydown', props.handleEscPress);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', props.handleEscPress);
         }
     }, [isActive]);
 
