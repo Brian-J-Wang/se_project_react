@@ -6,6 +6,10 @@ function ItemCard(props) {
         props.handleCardClick(props.name, props.link, props.weatherType, props.id);
     }
 
+    function handleLike() {
+        props.onCardLike({ id: props.id, isLiked: props.isLiked});
+    }
+
     return (
         <div className="item-card" onClick={handleCardClick}>
             <h1 className='item-card__name'>{props.name}</h1>

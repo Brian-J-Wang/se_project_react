@@ -1,19 +1,22 @@
-export default class ClothingAPI {
+import RequestAPI from "./requestAPI";
+
+export default class ClothingAPI extends RequestAPI {
     constructor(baseUrl) {
-        this.baseUrl = baseUrl;
+        super(baseUrl);
     }
 
     getClothing() {
         return this._request(this.baseUrl.concat('/items'), {
-            method: "GET"
+            method: "GET",
         });
     }
 
-    addClothing(data) {
+    addClothing(data, token) {
         return this._request(this.baseUrl.concat('/items'), {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 _id: data._id,
@@ -24,24 +27,13 @@ export default class ClothingAPI {
         })
     }
 
-    removeClothing(id) {
+    removeClothing(id, token) {
         return this._request(this.baseUrl.concat(`/items/${id}`),{
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
             }
         });
-    }
-
-    _request(url, options) {
-        return fetch(url, options).then(this._checkResponse);
-    }
-
-    _checkResponse(res) {
-        if (res.ok) {
-            return res.json();
-        } else {
-            return Promise.reject('invalid data');
-        }
     }
 }

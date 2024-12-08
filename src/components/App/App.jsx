@@ -13,11 +13,16 @@ import ItemModal from '../ItemModal/ItemModal';
 import AddItemModal from '../AddItemModal/AddItemModal';
 import { TemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
 import { UserClothingContext } from '../../contexts/UserClothingContext.js';
-import defaultClothingItems from '../../utils/defaultClothing.js'
 import Profile from '../Profile/Profile';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+import { RegisterModal } from '../RegisterModal/RegisterModal.jsx';
+import { LoginModal } from '../LoginModal/LoginModal.jsx';
+import Auth from '../../utils/auth.js';
 
 const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
 const clothingAPI = new ClothingAPI("http://localhost:3001");
+const authAPI = new Auth("http://localhost:3001");
 
 function App() {
 	const [temperature, setTemperature] = useState(undefined);
@@ -136,18 +141,91 @@ function App() {
 		})
 	}
 
+	const handleCardLike = ({ id, isLiked }) => {
+		const token = localStorage.getItem("jwt");
+			// Check if this card is not currently liked
+			!isLiked
+			  ? // if so, send a request to add the user's id to the card's likes array
+				api
+				  // the first argument is the card's id
+				  .addCardLike(id, token)
+				  .then((updatedCard) => {
+					setClothingItems((cards) =>
+					  cards.map((item) => (item._id === id ? updatedCard : item))
+					);
+				  })
+				  .catch((err) => console.log(err))
+			  : // if not, send a request to remove the user's id from the card's likes array
+				api
+				  // the first argument is the card's id
+				  .removeCardLike(id, token) 
+				  .then((updatedCard) => {
+					setClothingItems((cards) =>
+					  cards.map((item) => (item._id === id ? updatedCard : item))
+					);
+				  })
+				  .catch((err) => console.log(err));
+	}
 
+	//validation
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [currentUser, setCurrentUser] = useState();
+	const handleUserRegistration = (name, avatar, email, password) => {
+		authAPI.signUp(name, avatar, email, password).then((data) => {
+			setActiveModal(null);
+			return authAPI.signIn(email, password);
+		}).then((data) => {
+			localStorage.setItem("jwt", data.token);
+			setIsLoggedIn(true);
+			setCurrentUser(data);
+		})
+	}
+
+	const handleSignUpClick = () => {
+		setActiveModal(<RegisterModal handleRegistration={handleUserRegistration}></RegisterModal>)
+	}
+	
+	const handleUserAuthorization = (email, password) => {
+		authAPI.signIn(email, password).then((data) => {
+			setActiveModal(null);
+			localStorage.setItem("jwt", data.token);
+			setIsLoggedIn(true);
+			setCurrentUser(data);
+		})
+	} 
+
+	const handleLogInClick = () => {
+		setActiveModal(<LoginModal handleAuthorization={handleUserAuthorization}></LoginModal>)
+	}
+
+	useEffect(() => {
+		const token = localStorage.getItem("jwt");
+		
+		if (token) {
+			authAPI.checkTokenValidity(token).then((data) => {
+				setIsLoggedIn(true);
+				setCurrentUser(data);
+			});
+		}
+	}, [])
+
+	//merge the route and the protected route component together...?
 	return (
 	<div className='app'>
+		<CurrentUserContext.Provider value={currentUser}>
 		<TemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
-			<Header date={currentDate} location={location} handleAddClothesClick={handleAddClothesClick} />
+			<Header date={currentDate} location={location} handleAddClothesClick={handleAddClothesClick} 
+			handleSignUpClick={handleSignUpClick} handleLogInClick={handleLogInClick}/>
 			<UserClothingContext.Provider value={{userClothing, handleAddItemSubmit}}>
 				<Routes>
 					<Route path='/' element={
-					<Main temperature={temperature} isNight={isNight} weather={weather} ambience={ambience} handleCardClick={handleCardClick} />
+					<Main temperature={temperature} isNight={isNight} weather={weather} ambience={ambience} 
+					handleCardClick={handleCardClick} onCardLike={handleCardLike}/>
 					}/>
 					<Route path='/profile' element={
-					<Profile handleAddClothesClick={handleAddClothesClick} handleCardClick={handleCardClick}/>
+						<ProtectedRoute isLoggedIn={isLoggedIn}>
+							<Profile handleAddClothesClick={handleAddClothesClick} handleCardClick={handleCardClick}/>
+						</ProtectedRoute>
 					}/>
 				</Routes>
 			</UserClothingContext.Provider>
@@ -157,6 +235,7 @@ function App() {
 				{activeModal}
 			</Overlay>
 		</TemperatureUnitContext.Provider>
+		</CurrentUserContext.Provider>
 	</div>
 	);
 }

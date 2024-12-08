@@ -15,11 +15,23 @@ function Header(props) {
             </div>
             <div className="header__right-content">
                 <ToggleSwitch className={'header__toggle-switch'}/>
-                <button className="header__add-clothes-button" onClick={props.handleAddClothesClick}>+ Add clothes</button>
-                <p className="header__username">Terrence Tegegne</p>
-                <Link to={'/profile'}>
-                    <img src={profile} alt="profilePicture" className="header__profile-picture" />
-                </Link>
+                {
+                    (props.isLoggedIn) ? (
+                        <>
+                            <button className="header__add-clothes-button" onClick={props.handleAddClothesClick}>+ Add clothes</button>
+                            <p className="header__username">Terrence Tegegne</p>
+                            <Link to={'/profile'}>
+                                <img src={profile} alt="profilePicture" className="header__profile-picture" />
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={props.handleSignUpClick} className='header__button header__sign-up'>Sign Up</button>
+                            <button onClick={props.handleLogInClick} className='header__button header__log-in'>Log In</button>
+                        </>
+                    )
+                }
+                
             </div>
         </header>
     )

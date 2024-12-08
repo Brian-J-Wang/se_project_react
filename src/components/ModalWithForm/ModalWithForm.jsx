@@ -1,6 +1,5 @@
 import '../Modal/Modal.css'
 import './ModalWithForm.css';
-import { useEffect } from 'react';
 
 function ModalWithForm(props) {
 
@@ -12,7 +11,6 @@ function ModalWithForm(props) {
                 {props.children}
                 <button className="form-modal__submit" type='submit' form={props.name}>{props.buttonText}</button>
             </form>
-            
         </div>
     )
 }
