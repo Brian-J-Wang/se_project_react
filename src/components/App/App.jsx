@@ -171,7 +171,7 @@ function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [currentUser, setCurrentUser] = useState();
 	const handleUserRegistration = (name, avatar, email, password) => {
-		authAPI.signUp(name, avatar, email, password).then((data) => {
+		authAPI.signUp(name, avatar, email, password).then(() => {
 			setActiveModal(null);
 			return authAPI.signIn(email, password);
 		}).then((data) => {
@@ -182,7 +182,9 @@ function App() {
 	}
 
 	const handleSignUpClick = () => {
-		setActiveModal(<RegisterModal handleRegistration={handleUserRegistration}></RegisterModal>)
+		setActiveModal(<RegisterModal handleRegistration={handleUserRegistration} handleCloseButtonClick={() => {
+			setActiveModal(null);
+		}}></RegisterModal>)
 	}
 	
 	const handleUserAuthorization = (email, password) => {
@@ -195,7 +197,15 @@ function App() {
 	} 
 
 	const handleLogInClick = () => {
-		setActiveModal(<LoginModal handleAuthorization={handleUserAuthorization}></LoginModal>)
+		setActiveModal(<LoginModal handleAuthorization={handleUserAuthorization} handleCloseButtonClick={() => {
+			setActiveModal(null);
+		}}></LoginModal>)
+	}
+
+	const handleLogOut = () => {
+		localStorage.removeItem("jwt");
+		setIsLoggedIn(false);
+		setCurrentUser(null);
 	}
 
 	useEffect(() => {
@@ -215,7 +225,8 @@ function App() {
 		<CurrentUserContext.Provider value={currentUser}>
 		<TemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
 			<Header date={currentDate} location={location} handleAddClothesClick={handleAddClothesClick} 
-			handleSignUpClick={handleSignUpClick} handleLogInClick={handleLogInClick}/>
+			handleSignUpClick={handleSignUpClick} handleLogInClick={handleLogInClick} isLoggedIn={isLoggedIn}
+			user={currentUser}/>
 			<UserClothingContext.Provider value={{userClothing, handleAddItemSubmit}}>
 				<Routes>
 					<Route path='/' element={
@@ -224,13 +235,15 @@ function App() {
 					}/>
 					<Route path='/profile' element={
 						<ProtectedRoute isLoggedIn={isLoggedIn}>
-							<Profile handleAddClothesClick={handleAddClothesClick} handleCardClick={handleCardClick}/>
+							<Profile 
+							handleAddClothesClick={handleAddClothesClick} 
+							handleCardClick={handleCardClick}
+							handleLogOut={handleLogOut}/>
 						</ProtectedRoute>
 					}/>
 				</Routes>
 			</UserClothingContext.Provider>
 			<Footer/>
-
 			<Overlay handleOverlayClick={handleOverlayClick} handleEscPress={handleEscPress}>
 				{activeModal}
 			</Overlay>

@@ -1,6 +1,5 @@
 import './Header.css'
 import logo from '../../assets/logo.svg'
-import profile from '../../assets/profile.svg';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import { Link } from 'react-router-dom';
 
@@ -19,10 +18,13 @@ function Header(props) {
                     (props.isLoggedIn) ? (
                         <>
                             <button className="header__add-clothes-button" onClick={props.handleAddClothesClick}>+ Add clothes</button>
-                            <p className="header__username">Terrence Tegegne</p>
-                            <Link to={'/profile'}>
-                                <img src={profile} alt="profilePicture" className="header__profile-picture" />
-                            </Link>
+                            <div className="header__profile">
+                                <p className="header__username">{props.user.name}</p>
+                                <Link to={'/profile'}>
+                                    <img src={props.user.avatar} alt="profilePicture" className="header__profile-picture" />
+                                </Link>
+                            </div>
+                            
                         </>
                     ) : (
                         <>

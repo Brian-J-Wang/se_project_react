@@ -10,6 +10,7 @@
     width: 56px;
     height: 56px;
     margin: 0px 16px 0px 0px;
+    border-radius: 50%;
 }
 
 .sidebar__username {
@@ -17,4 +18,22 @@
     font-weight: 700;
     font-size: 20px;
     line-height: 24.8px;
+}
+
+.sidebar__profile-options {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar__option {
+    text-align: left;
+    outline: none;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24.8px;
+    cursor: pointer;
 }
