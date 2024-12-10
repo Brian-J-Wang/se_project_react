@@ -1,7 +1,10 @@
-import { useEffect } from 'react';
+import { useContext } from 'react';
 import './ItemModal.css'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function ItemModal(props) {
+    const currentUser = useContext(CurrentUserContext);
+    const isOwn = props.owner == currentUser._id;
 
     const onDeleteButtonClick = () => {
         props.handleDeleteCard(props.id);
@@ -16,7 +19,9 @@ function ItemModal(props) {
             </div>
             <div className="item-modal__description-container">
                 <p className="item-modal__weather-type">Weather: {props.weather}</p>
-                <button className='item-modal__delete-button' onClick={onDeleteButtonClick}>Delete item</button>
+                {
+                    isOwn &&  <button className='item-modal__delete-button' onClick={onDeleteButtonClick}>Delete item</button>
+                }
             </div>
         </div>
     )

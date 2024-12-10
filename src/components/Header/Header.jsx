@@ -2,8 +2,14 @@ import './Header.css'
 import logo from '../../assets/logo.svg'
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Header(props) {
+    const currentUser = useContext(CurrentUserContext);
+
+    console.log(currentUser);
+
     return (
         <header className="header">
             <div className="header__left-content">
@@ -15,7 +21,7 @@ function Header(props) {
             <div className="header__right-content">
                 <ToggleSwitch className={'header__toggle-switch'}/>
                 {
-                    (props.isLoggedIn) ? (
+                    (currentUser) ? (
                         <>
                             <button className="header__add-clothes-button" onClick={props.handleAddClothesClick}>+ Add clothes</button>
                             <div className="header__profile">

@@ -19,6 +19,7 @@ function Main(props) {
             <ul className="main__card-list">
             {
                 clothingContext.userClothing.filter(item => {
+                    console.log(JSON.stringify(item));
                     if (item.weather == props.ambience) {
                         return true;
                     } else {
@@ -28,7 +29,7 @@ function Main(props) {
                     return (
                         <ItemCard key={item._id} name={item.name}  onCardLike={props.handleCardLike}
                          link={item.imageUrl} weatherType={item.weather} handleCardClick={props.handleCardClick} 
-                         id={item._id}/>
+                         id={item._id} owner={item.owner}/>
                     )
                 })
             }

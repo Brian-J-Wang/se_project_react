@@ -5,7 +5,7 @@ import ClothesSection from './ClothesSection/ClothesSection';
 function Profile(props) {
     return (
         <div className="profile">
-            <SideBar onLogOutClick={props.handleLogOut}/>
+            <SideBar handleLogOut={props.handleLogOut}/>
             <ClothesSection handleAddClothesClick={props.handleAddClothesClick} handleCardClick={props.handleCardClick}/>
         </div>
     );

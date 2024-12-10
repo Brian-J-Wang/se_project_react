@@ -39,6 +39,7 @@ function App() {
 	useEffect(() => {
 		clothingAPI.getClothing()
 		.then(res => {
+			console.log(res);
 			setUserClothing(res);
 		})
 		.catch(rej => {
@@ -49,7 +50,7 @@ function App() {
 	//get weather data
 	useEffect(() => {
 		weatherAPI.getWeatherData()
-		.then(res => {
+		.then(() => {
 			setTemperature(weatherAPI.temperature.F);
 			setWeather(weatherAPI.weather);
 			setLocation(weatherAPI.location);
@@ -77,9 +78,9 @@ function App() {
 	}
 
 	//opens ItemModal whenever a clothing card has been clicked.
-	const handleCardClick = (name, image, weather, id) => {
+	const handleCardClick = (name, image, weather, id, owner) => {
 	setActiveModal((
-		<ItemModal name={name} image={image} weather={weather} id={id} handleCloseButtonClick={closeActiveModal} handleDeleteCard={handleDeleteCard}></ItemModal>
+		<ItemModal name={name} image={image} weather={weather} id={id} handleCloseButtonClick={closeActiveModal} handleDeleteCard={handleDeleteCard} owner={owner}></ItemModal>
 	));
 	}
 
@@ -96,8 +97,6 @@ function App() {
 	//overlay functions
 	const handleOverlayClick = (evt) => {
 		if (evt.target.classList.contains('overlay')) {
-			console.log(evt.currentTarget);
-			console.log(evt.target);
 			closeActiveModal();
 		}
 	}
@@ -114,9 +113,10 @@ function App() {
 
 	//functions for AddItemModal
 	const handleAddItemSubmit = (newItem) => {
+		const token = localStorage.getItem("jwt");
 		newItem._id = Math.random();
 		
-		clothingAPI.addClothing(newItem).then((item) => {
+		clothingAPI.addClothing(newItem, token).then((item) => {
 			setUserClothing([item, ...userClothing]);
 			closeActiveModal();
 		})
@@ -126,7 +126,9 @@ function App() {
 	}
 
 	const handleDeleteCard = (id) => {
-		clothingAPI.removeClothing(id).then((item) => {
+		const token = localStorage.getItem("jwt");
+
+		clothingAPI.removeClothing(id, token).then(() => {
 			setUserClothing(userClothing.filter((item) => {
 				if (item._id != id) {
 					return true;
@@ -144,32 +146,24 @@ function App() {
 	const handleCardLike = ({ id, isLiked }) => {
 		const token = localStorage.getItem("jwt");
 			// Check if this card is not currently liked
-			!isLiked
-			  ? // if so, send a request to add the user's id to the card's likes array
-				api
-				  // the first argument is the card's id
-				  .addCardLike(id, token)
-				  .then((updatedCard) => {
-					setClothingItems((cards) =>
-					  cards.map((item) => (item._id === id ? updatedCard : item))
+			!isLiked 
+			? clothingAPI.addCardLike(id, token)
+				.then((updatedCard) => {
+					setUserClothing((cards) =>
+						cards.map((item) => (item._id === id ? updatedCard : item))
 					);
-				  })
-				  .catch((err) => console.log(err))
-			  : // if not, send a request to remove the user's id from the card's likes array
-				api
-				  // the first argument is the card's id
-				  .removeCardLike(id, token) 
-				  .then((updatedCard) => {
-					setClothingItems((cards) =>
-					  cards.map((item) => (item._id === id ? updatedCard : item))
+				}).catch((err) => console.log(err))
+			: clothingAPI.removeCardLike(id, token) 
+				.then((updatedCard) => {
+					setUserClothing((cards) =>
+						cards.map((item) => (item._id === id ? updatedCard : item))
 					);
-				  })
-				  .catch((err) => console.log(err));
+				}).catch((err) => console.log(err));
 	}
 
 	//validation
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [currentUser, setCurrentUser] = useState();
+	const [currentUser, setCurrentUser] = useState(null);
 	const handleUserRegistration = (name, avatar, email, password) => {
 		authAPI.signUp(name, avatar, email, password).then(() => {
 			setActiveModal(null);
@@ -203,6 +197,7 @@ function App() {
 	}
 
 	const handleLogOut = () => {
+		console.log("logging out");
 		localStorage.removeItem("jwt");
 		setIsLoggedIn(false);
 		setCurrentUser(null);
