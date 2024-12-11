@@ -36,4 +36,24 @@ export default class ClothingAPI extends RequestAPI {
             }
         });
     }
+
+    addCardLike(id, token) {
+        return this._request(this.baseUrl.concat(`/items/${id}/likes`), {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
+            }
+        })
+    }
+
+    removeCardLike(id, token) {
+        return this._request(this.baseUrl.concat(`/items/${id}/likes`), {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
+            }
+        })
+    }
 }

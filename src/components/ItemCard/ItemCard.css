@@ -5,16 +5,28 @@
     cursor: pointer;
 }
 
-.item-card__name {
+.item-card__header {
     position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+}
+
+.item-card__heart {
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.item-card__name {
     background: white;
     padding: 2px 12px;
     font-size: 16px;
     font-weight: 700;
     line-height: 20px;
     color: (0, 0, 0, 0.6);
-    left: 50%;
-    transform: translate(-50%, 0);
     border-radius: 4px;
 }
 

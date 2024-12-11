@@ -19,6 +19,8 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { RegisterModal } from '../RegisterModal/RegisterModal.jsx';
 import { LoginModal } from '../LoginModal/LoginModal.jsx';
 import Auth from '../../utils/auth.js';
+import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal.jsx';
+import EditProfileModal from '../EditProfileModal/EditProfileModal.jsx';
 
 const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
 const clothingAPI = new ClothingAPI("http://localhost:3001");
@@ -39,7 +41,6 @@ function App() {
 	useEffect(() => {
 		clothingAPI.getClothing()
 		.then(res => {
-			console.log(res);
 			setUserClothing(res);
 		})
 		.catch(rej => {
@@ -126,27 +127,39 @@ function App() {
 	}
 
 	const handleDeleteCard = (id) => {
-		const token = localStorage.getItem("jwt");
+		const DeleteCard = () => {
+			const token = localStorage.getItem("jwt");
 
-		clothingAPI.removeClothing(id, token).then(() => {
-			setUserClothing(userClothing.filter((item) => {
-				if (item._id != id) {
-					return true;
-				} else {
-					return false;
-				}
-			}));
-			closeActiveModal();
-		})
-		.catch(rej => {
-			console.error(rej);
-		})
+			clothingAPI.removeClothing(id, token).then(() => {
+				setUserClothing(userClothing.filter((item) => {
+					if (item._id != id) {
+						return true;
+					} else {
+						return false;
+					}
+				}));
+				closeActiveModal();
+			})
+			.catch(rej => {
+				console.error(rej);
+			})
+		}
+
+		setActiveModal(
+			<ConfirmDeleteModal 
+			onConfirm={DeleteCard}
+			onCancel={() => {
+				setActiveModal(null);
+			}}
+		/>)
+
+		
 	}
 
 	const handleCardLike = ({ id, isLiked }) => {
 		const token = localStorage.getItem("jwt");
 			// Check if this card is not currently liked
-			!isLiked 
+		!isLiked 
 			? clothingAPI.addCardLike(id, token)
 				.then((updatedCard) => {
 					setUserClothing((cards) =>
@@ -173,6 +186,24 @@ function App() {
 			setIsLoggedIn(true);
 			setCurrentUser(data);
 		})
+		.catch((err) => {
+			console.log(err);
+		})
+	}
+
+	const handleProfileChange = () => {
+		const updateProfile = ({name, avatar}) => {
+			const token = localStorage.getItem("jwt");
+			authAPI.updateUserProfile(name, avatar, token).then(() => {
+				setCurrentUser({ ...currentUser, name: name, avatar: avatar});
+				setActiveModal(null);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		}
+
+		setActiveModal(<EditProfileModal onSubmit={updateProfile} />)
 	}
 
 	const handleSignUpClick = () => {
@@ -188,6 +219,9 @@ function App() {
 			setIsLoggedIn(true);
 			setCurrentUser(data);
 		})
+		.catch((err) => {
+			console.log(err);
+		})
 	} 
 
 	const handleLogInClick = () => {
@@ -197,7 +231,6 @@ function App() {
 	}
 
 	const handleLogOut = () => {
-		console.log("logging out");
 		localStorage.removeItem("jwt");
 		setIsLoggedIn(false);
 		setCurrentUser(null);
@@ -221,7 +254,7 @@ function App() {
 		<TemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
 			<Header date={currentDate} location={location} handleAddClothesClick={handleAddClothesClick} 
 			handleSignUpClick={handleSignUpClick} handleLogInClick={handleLogInClick} isLoggedIn={isLoggedIn}
-			user={currentUser}/>
+			/>
 			<UserClothingContext.Provider value={{userClothing, handleAddItemSubmit}}>
 				<Routes>
 					<Route path='/' element={
@@ -233,6 +266,7 @@ function App() {
 							<Profile 
 							handleAddClothesClick={handleAddClothesClick} 
 							handleCardClick={handleCardClick}
+							handleProfileChange={handleProfileChange}
 							handleLogOut={handleLogOut}/>
 						</ProtectedRoute>
 					}/>

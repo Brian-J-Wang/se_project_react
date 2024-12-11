@@ -11,7 +11,7 @@ function SideBar(props) {
                 <p className="sidebar__username">{currentUser.name}</p>
             </div>
             <div className="sidebar__profile-options">
-                <button type="button" className='sidebar__option'>Change profile data</button>
+                <button type="button" className='sidebar__option' onClick={props.handleProfileChange}>Change profile data</button>
                 <button type="button" className='sidebar__option' onClick={props.handleLogOut}>Log out</button>
             </div>
         </div>

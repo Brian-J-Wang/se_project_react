@@ -9,7 +9,7 @@ function ModalWithForm(props) {
             <h1 className="form-modal__title">{props.title}</h1>
             <form id={props.name} className='form-modal__form' onSubmit={props.handleOnSubmit}>
                 {props.children}
-                <button className="form-modal__submit" type='submit' form={props.name}>{props.buttonText}</button>
+                <button className={"form-modal__submit " + props.buttonStyle} type='submit' form={props.name}>{props.buttonText}</button>
             </form>
         </div>
     )

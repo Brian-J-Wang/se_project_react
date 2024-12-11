@@ -1,0 +1,10 @@
+.edit-profile__form-title {
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0px;
+    font-weight: 700;
+}
+
+.edit-profile__button {
+    margin-right: auto;
+}

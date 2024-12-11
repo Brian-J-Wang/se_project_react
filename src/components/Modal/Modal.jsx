@@ -3,12 +3,6 @@ function Modal({ name, onClose, children}) {
         if (e.key === "escape") {
             onClose();
         }
-
-        document.addEventListener('keydown', handleEscape);
-
-        return () => {
-            document.removeEventListener('keydown', handleEscape);
-        }
     }
 
     const handleOverlay = (e) => {

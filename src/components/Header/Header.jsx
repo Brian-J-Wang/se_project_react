@@ -8,8 +8,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 function Header(props) {
     const currentUser = useContext(CurrentUserContext);
 
-    console.log(currentUser);
-
     return (
         <header className="header">
             <div className="header__left-content">
@@ -25,9 +23,9 @@ function Header(props) {
                         <>
                             <button className="header__add-clothes-button" onClick={props.handleAddClothesClick}>+ Add clothes</button>
                             <div className="header__profile">
-                                <p className="header__username">{props.user.name}</p>
+                                <p className="header__username">{currentUser.name}</p>
                                 <Link to={'/profile'}>
-                                    <img src={props.user.avatar} alt="profilePicture" className="header__profile-picture" />
+                                    <img src={currentUser.avatar} alt="profilePicture" className="header__profile-picture" />
                                 </Link>
                             </div>
                             

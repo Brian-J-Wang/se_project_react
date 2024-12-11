@@ -34,4 +34,15 @@ export default class Auth extends RequestAPI {
             }
         })
     }
+
+    updateUserProfile(name, avatar, token) {
+        return this._request(this.baseUrl.concat('/users/me'), {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ name, avatar })
+        })
+    }
 }

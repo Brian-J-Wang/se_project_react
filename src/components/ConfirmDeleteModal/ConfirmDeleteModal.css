@@ -1,0 +1,39 @@
+.delete-modal {
+    background-color: white;
+    border-radius: 20px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    width: 670px;
+    box-sizing: border-box;
+}
+
+.delete-modal__text {
+    font-weight: 700;
+    font-size: 20px;
+    width: 367px;
+    line-height: 24px;
+    text-align: center;
+    margin: 0px;
+}   
+
+.delete-modal__button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.delete-modal__button {
+    background-color: rgba(0,0,0,0);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.delete-modal__button-type_confirm {
+    color: #FF4D00;
+}
