@@ -213,14 +213,11 @@ function App() {
 	}
 	
 	const handleUserAuthorization = (email, password) => {
-		authAPI.signIn(email, password).then((data) => {
+		return authAPI.signIn(email, password).then((data) => {
 			setActiveModal(null);
 			localStorage.setItem("jwt", data.token);
 			setIsLoggedIn(true);
 			setCurrentUser(data);
-		})
-		.catch((err) => {
-			console.log(err);
 		})
 	} 
 
