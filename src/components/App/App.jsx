@@ -256,7 +256,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={
 					<Main temperature={temperature} isNight={isNight} weather={weather} ambience={ambience} 
-					handleCardClick={handleCardClick} onCardLike={handleCardLike}/>
+					handleCardClick={handleCardClick} onCardLike={handleCardLike} isLoggedIn={isLoggedIn}/>
 					}/>
 					<Route path='/profile' element={
 						<ProtectedRoute isLoggedIn={isLoggedIn}>
