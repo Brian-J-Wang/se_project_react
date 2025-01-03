@@ -80,9 +80,10 @@ function App() {
 
 	//opens ItemModal whenever a clothing card has been clicked.
 	const handleCardClick = (name, image, weather, id, owner) => {
-	setActiveModal((
-		<ItemModal name={name} image={image} weather={weather} id={id} handleCloseButtonClick={closeActiveModal} handleDeleteCard={handleDeleteCard} owner={owner}></ItemModal>
-	));
+		console.log(name, image, weather, id, owner)
+		setActiveModal((
+			<ItemModal name={name} image={image} weather={weather} id={id} handleCloseButtonClick={closeActiveModal} handleDeleteCard={handleDeleteCard} owner={owner}></ItemModal>
+		));
 	}
 
 	const handleToggleSwitchChange = () => {
@@ -206,10 +207,16 @@ function App() {
 		setActiveModal(<EditProfileModal onSubmit={updateProfile} />)
 	}
 
-	const handleSignUpClick = () => {
-		setActiveModal(<RegisterModal handleRegistration={handleUserRegistration} handleCloseButtonClick={() => {
-			setActiveModal(null);
-		}}></RegisterModal>)
+	const openSignUpModal = () => {
+		setActiveModal(<RegisterModal 
+			handleRegistration={handleUserRegistration} 
+			handleCloseButtonClick={() => {
+				setActiveModal(null);
+			}}
+			handleToggleClick={() => {
+				openLogInModal();
+			}
+		}></RegisterModal>)
 	}
 	
 	const handleUserAuthorization = (email, password) => {
@@ -221,10 +228,16 @@ function App() {
 		})
 	} 
 
-	const handleLogInClick = () => {
-		setActiveModal(<LoginModal handleAuthorization={handleUserAuthorization} handleCloseButtonClick={() => {
-			setActiveModal(null);
-		}}></LoginModal>)
+	const openLogInModal = () => {
+		setActiveModal(<LoginModal 
+			handleAuthorization={handleUserAuthorization} 
+			handleCloseButtonClick={() => {
+				setActiveModal(null);
+			}}
+			handleToggleClick={() => {
+				openSignUpModal();
+			}}
+		/>)
 	}
 
 	const handleLogOut = () => {
@@ -250,7 +263,7 @@ function App() {
 		<CurrentUserContext.Provider value={currentUser}>
 		<TemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
 			<Header date={currentDate} location={location} handleAddClothesClick={handleAddClothesClick} 
-			handleSignUpClick={handleSignUpClick} handleLogInClick={handleLogInClick} isLoggedIn={isLoggedIn}
+			handleSignUpClick={openSignUpModal} handleLogInClick={openLogInModal} isLoggedIn={isLoggedIn}
 			/>
 			<UserClothingContext.Provider value={{userClothing, handleAddItemSubmit}}>
 				<Routes>

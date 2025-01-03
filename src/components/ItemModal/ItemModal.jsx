@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function ItemModal(props) {
     const currentUser = useContext(CurrentUserContext);
-    const isOwn = props.owner == currentUser._id;
+    const isOwn = props.owner == (currentUser ? currentUser._id : null);
 
     const onDeleteButtonClick = () => {
         props.handleDeleteCard(props.id);

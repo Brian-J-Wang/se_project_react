@@ -3,6 +3,7 @@ import heart from "../../assets/heart-default.svg"
 import heartLiked from "../../assets/heart-liked.svg"
 
 function ItemCard(props) {
+    console.log(props);
     function handleCardClick() {
         props.handleCardClick(props.name, props.link, props.weatherType, props.id, props.owner);
     }
