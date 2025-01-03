@@ -31,7 +31,7 @@ export function LoginModal(props) {
                 <input type="password" id="password" placeholder='password' ref={passwordRef} className={`modal__input ${!validPassword && 'modal__invalid'}`}/>
                 <div className='login-modal__submit-bar'>
                     <button className='login-modal__submit project__button' type='submit'> Log in</button>
-                    <button className='project__contrast-button'>or Sign Up</button>
+                    <button className='project__contrast-button' onClick={props.handleToggleClick}>or Sign Up</button>
                 </div>
             </form>
         </div>
