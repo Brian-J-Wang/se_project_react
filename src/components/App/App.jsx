@@ -204,7 +204,9 @@ function App() {
 			})
 		}
 
-		setActiveModal(<EditProfileModal onSubmit={updateProfile} />)
+		setActiveModal(<EditProfileModal onSubmit={updateProfile} handleCloseButtonClick={() => {
+			setActiveModal(null);
+		}}/>)
 	}
 
 	const openSignUpModal = () => {
@@ -223,6 +225,9 @@ function App() {
 		return authAPI.signIn(email, password).then((data) => {
 			setActiveModal(null);
 			localStorage.setItem("jwt", data.token);
+			return authAPI.checkTokenValidity(data.token);
+		}).then((data) => {
+			console.log(data);
 			setIsLoggedIn(true);
 			setCurrentUser(data);
 		})
