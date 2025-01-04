@@ -1,3 +1,7 @@
 .login-modal__submit-bar {
     margin-top: 32px;
 }
+
+.login-modal__hide-default-button {
+    display: none;
+}
