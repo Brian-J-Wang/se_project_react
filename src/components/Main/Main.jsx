@@ -11,7 +11,7 @@ function Main(props) {
     const clothingContext = useContext(UserClothingContext);
 
     return (
-        <>
+        <main>
             <WeatherCard isNight={props.isNight} temperature={props.temperature} weather={props.weather}></WeatherCard>
             <p className="main__blurb">
                 Today is {props.temperature} ° {temperatureContext.currentTemperatureUnit} / You may want to wear:
@@ -35,7 +35,7 @@ function Main(props) {
                 })
             }
             </ul>
-        </>
+        </main>
     )
 }
 
