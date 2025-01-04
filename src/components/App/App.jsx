@@ -278,7 +278,8 @@ function App() {
 					}/>
 					<Route path='/profile' element={
 						<ProtectedRoute isLoggedIn={isLoggedIn}>
-							<Profile 
+							<Profile
+							onCardLike={handleCardLike}
 							handleAddClothesClick={handleAddClothesClick} 
 							handleCardClick={handleCardClick}
 							handleProfileChange={handleProfileChange}

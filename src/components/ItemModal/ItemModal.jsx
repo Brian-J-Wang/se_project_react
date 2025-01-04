@@ -20,7 +20,7 @@ function ItemModal(props) {
             <div className="item-modal__description-container">
                 <p className="item-modal__weather-type">Weather: {props.weather}</p>
                 {
-                    isOwn &&  <button className='item-modal__delete-button' onClick={onDeleteButtonClick}>Delete item</button>
+                    isOwn && <button className='item-modal__delete-button' onClick={onDeleteButtonClick}>Delete item</button>
                 }
             </div>
         </div>

@@ -27,9 +27,10 @@ function Main(props) {
                 }).map(item => {
                     return (
                         <ItemCard key={item._id} name={item.name} onCardLike={props.onCardLike}
-                         link={item.imageUrl} weatherType={item.weather} handleCardClick={props.handleCardClick} 
-                         id={item._id} owner={item.owner} isLiked={item.likes.includes(item.owner)
-                        }/>
+                            link={item.imageUrl} weatherType={item.weather} handleCardClick={props.handleCardClick} 
+                            id={item._id} owner={item.owner} isLiked={item.likes.includes(item.owner)}
+                            isLoggedIn={props.isLoggedIn}
+                         />
                     )
                 })
             }

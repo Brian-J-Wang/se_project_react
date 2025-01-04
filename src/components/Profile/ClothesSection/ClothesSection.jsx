@@ -1,11 +1,14 @@
 import './ClothesSection.css'
-import defaultClothingItems from '../../../utils/defaultClothing.js'
 import ItemCard from '../../ItemCard/ItemCard.jsx'
 import { useContext, useEffect } from 'react'
 import { UserClothingContext } from '../../../contexts/UserClothingContext.js'
+import { CurrentUserContext } from '../../../contexts/CurrentUserContext.js'
 
 function ClothesSection(props) {
+    const userContext = useContext(CurrentUserContext);
     const clothingContext = useContext(UserClothingContext);
+
+    console.log(props.handleCardClick);
 
     return (
         <div className="clothes-section">
@@ -15,9 +18,17 @@ function ClothesSection(props) {
             </div>
             <div className="clothes-section__content">
                 {
-                    clothingContext.userClothing.map((item) => {
+                    clothingContext.userClothing.filter((item) => {
+                        return item.owner == userContext._id;
+                    }).map((item) => {
                         return (
-                            <ItemCard key={item._id} name={item.name} link={item.imageUrl} weatherType={item.weather} handleCardClick={props.handleCardClick} id={item._id}/>
+                            <ItemCard key={item._id} name={item.name} link={item.imageUrl}
+                            owner={item.owner}
+                            weatherType={item.weather} handleCardClick={props.handleCardClick} id={item._id}
+                            onCardLike={props.onCardLike}
+                            isLoggedIn={props.isLoggedIn}
+                            isLiked={item.likes.includes(item.owner)}
+                            />
                         )
                     })
                 }

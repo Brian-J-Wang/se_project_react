@@ -6,7 +6,7 @@ function Profile(props) {
     return (
         <div className="profile">
             <SideBar handleLogOut={props.handleLogOut} handleProfileChange={props.handleProfileChange}/>
-            <ClothesSection handleAddClothesClick={props.handleAddClothesClick} handleCardClick={props.handleCardClick}/>
+            <ClothesSection handleAddClothesClick={props.handleAddClothesClick} handleCardClick={props.handleCardClick} isLoggedIn={true} onCardLike={props.onCardLike}/>
         </div>
     );
 }
