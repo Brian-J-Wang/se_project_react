@@ -230,6 +230,8 @@ function App() {
 			console.log(data);
 			setIsLoggedIn(true);
 			setCurrentUser(data);
+		}).catch((err) => {
+			console.error(err);
 		})
 	} 
 
@@ -258,6 +260,9 @@ function App() {
 			authAPI.checkTokenValidity(token).then((data) => {
 				setIsLoggedIn(true);
 				setCurrentUser(data);
+			})
+			.catch((err) => {
+				console.error(err);
 			});
 		}
 	}, [])
