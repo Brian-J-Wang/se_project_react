@@ -128,7 +128,7 @@ function App() {
 	}
 
 	const handleDeleteCard = (id) => {
-		const DeleteCard = () => {
+		const deleteCard = () => {
 			const token = localStorage.getItem("jwt");
 
 			clothingAPI.removeClothing(id, token).then(() => {
@@ -148,7 +148,7 @@ function App() {
 
 		setActiveModal(
 			<ConfirmDeleteModal 
-			onConfirm={DeleteCard}
+			onConfirm={deleteCard}
 			onCancel={() => {
 				setActiveModal(null);
 			}}
