@@ -30,7 +30,7 @@ export function LoginModal(props) {
             <input type="password" id="password" placeholder='password' value={password} onChange={(evt) => { setPassword(evt.target.value) }} className={`modal__input ${!validPassword && 'modal__invalid'}`}/>
             <div className='login-modal__submit-bar'>
                 <button className='login-modal__submit project__button' type='submit'> Log in</button>
-                <button className='project__contrast-button' onClick={props.handleToggleClick}>or Sign Up</button>
+                <button className='project__contrast-button' onClick={props.handleToggleClick} type='button'>or Sign Up</button>
             </div>
         </ModalWithForm>
     )

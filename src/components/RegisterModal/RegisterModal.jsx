@@ -30,7 +30,7 @@ export function RegisterModal(props) {
             <input type="url" id="avatar" className='modal__input' placeholder='avatar URL' value={avatar} onChange={(evt) => { setAvatar(evt.target.value)}}/>
             <div className='login-modal__submit-bar register-modal__bottom-buttons'>
                 <button className='login-modal__submit project__button' type='submit'>Sign Up</button>
-                <button className='project__contrast-button' onClick={props.handleToggleClick}>or Log In</button>
+                <button className='project__contrast-button' onClick={props.handleToggleClick} type='button'>or Log In</button>
             </div>
         </ModalWithForm>
     )
