@@ -23,8 +23,12 @@ import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal.jsx';
 import EditProfileModal from '../EditProfileModal/EditProfileModal.jsx';
 
 const weatherAPI = new WeatherAPI('a58fbd8675267b1b73e3c1bdcc74ac04', {longitude: -74.00, latitude: 40.71});
-const clothingAPI = new ClothingAPI("http://localhost:3001");
-const authAPI = new Auth("http://localhost:3001");
+
+const baseUrl = process.env.NODE_ENV === 'production'
+	? "https://api.WhatToW.jumpingcrab.com"
+	: "http://localhost:3001"
+const clothingAPI = new ClothingAPI(baseUrl);
+const authAPI = new Auth(baseUrl);
 
 function App() {
 	const [temperature, setTemperature] = useState(undefined);
