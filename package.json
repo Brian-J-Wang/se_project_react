@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && scp -r ./dist/* tripletenuser@domainname.example.com:/home/tripletenuser/frontend"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
@@ -28,5 +28,5 @@
     "gh-pages": "^6.1.1",
     "vite": "^5.2.0"
   },
-  "homepage": "https://Brian-J-Wang.github.io/se_project_react/"
+  "homepage": "https://www.WhatToW.jumpingcrab.com"
 }
