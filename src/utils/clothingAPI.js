@@ -19,7 +19,6 @@ export default class ClothingAPI extends RequestAPI {
                 "authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
-                _id: data._id,
                 name: data.name,
                 weather: data.weather,
                 imageUrl: data.imageUrl

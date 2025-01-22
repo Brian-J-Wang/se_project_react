@@ -120,7 +120,6 @@ function App() {
 	//functions for AddItemModal
 	const handleAddItemSubmit = (newItem) => {
 		const token = localStorage.getItem("jwt");
-		newItem._id = Math.random();
 		
 		clothingAPI.addClothing(newItem, token).then((item) => {
 			setUserClothing([item, ...userClothing]);
